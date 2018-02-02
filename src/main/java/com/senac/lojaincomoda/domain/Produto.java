@@ -1,24 +1,33 @@
 package com.senac.lojaincomoda.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
-@Entity
+import org.springframework.beans.factory.annotation.Autowired;
+
+//Todos os @ são JPA
+@Entity // Responsável por informar à JPA que não é apenas uma classe, é uma tabela a
+		// ser criada no banco
 public class Produto implements Serializable {
 
-	@Transient
+	@Transient // Para dizer que o atributo serialVersionUID = 1L não vai ser persistido no
+				// banco (Não vai ser criada coluna com isso)
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@Column(nullable = false)	
+	@Column(nullable = false)
 	private String nome;
 	@Column(nullable = false)
 	private String descricao;
@@ -36,6 +45,11 @@ public class Produto implements Serializable {
 	public Produto() {
 
 	}
+
+	@Autowired
+	@ManyToMany
+	@JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+	private List<Categoria> categorias;
 
 	public Long getId() {
 		return id;

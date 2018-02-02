@@ -1,4 +1,4 @@
-package com.senac.lojaincomoda.persist;
+package com.senac.lojaincomoda.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,12 +17,13 @@ import com.senac.lojaincomoda.domain.Produto;
 import com.senac.lojaincomoda.repository.ProdutoRepository;
 
 @Controller
-@RequestMapping(path="/users")
-public class ProdutoController {
-	
+@RequestMapping(path="/categorias")
+
+public class CategoriaController {
+
 	@Autowired
 	private ProdutoRepository repository;
-
+	
 	@GetMapping()
 	public @ResponseBody Iterable<Produto> all() {
 		return repository.findAll();
@@ -50,5 +51,6 @@ public class ProdutoController {
 	public ResponseEntity<Produto> update(@RequestBody Produto produto) {
 		repository.save(produto);
 		return new ResponseEntity<Produto>(produto, HttpStatus.ACCEPTED);
-	}
+	}	
+	
 }
