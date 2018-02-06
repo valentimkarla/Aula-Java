@@ -15,9 +15,12 @@ import javax.persistence.Transient;
  * A anotação @Entity é utilizada para definir a classe como uma entidade persistida no banco (virar tabela)
  * A anotação @Entity pode ter parâmetros passados como o nome da tabela, é necessário adicionar
  * () com o valor "name", como no exemplo @Entity(name="tb_pessoa")  
+ * @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS) - Define qual a estratégia de mapeamento  de herança será utilizada
+ * Um ponto importante, a utilização da palavra-chave abstract, para que na hora da criação do banco o hibernate não crie uma tabela com os atributos da classe Pessoa
+ * @MappedSuperClass - Define o mapeamento da herança concreta. Quando utilizado, deve-se pôr somente ele (removendo o @Entity e Inheritance) 
  **/
 @Entity
-public class Pessoa implements Serializable{ //Serializable garante a transmissão correta de dados, evita falhas
+public abstract class Pessoa implements Serializable{ //Serializable garante a transmissão correta de dados, evita falhas
 	/**
 	 * Anotação @Transient é utilizada para dizer que este atributo não será persistido no banco de dados (não vai virar tabela)
 	 */
@@ -94,7 +97,9 @@ public class Pessoa implements Serializable{ //Serializable garante a transmiss�
 	}
 
 
-
+	/**
+	 * Hash code é pra comparação de objetos
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
