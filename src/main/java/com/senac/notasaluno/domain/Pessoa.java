@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 //Anotação para definir se a classe será persistida para o banco (Virar tabela)
 
@@ -15,11 +16,15 @@ import javax.persistence.Transient;
  * A anotação @Entity é utilizada para definir a classe como uma entidade persistida no banco (virar tabela)
  * A anotação @Entity pode ter parâmetros passados como o nome da tabela, é necessário adicionar
  * () com o valor "name", como no exemplo @Entity(name="tb_pessoa")  
+ * -- Anotações para herança na superclass (classe pai)
  * @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS) - Define qual a estratégia de mapeamento  de herança será utilizada
  * Um ponto importante, a utilização da palavra-chave abstract, para que na hora da criação do banco o hibernate não crie uma tabela com os atributos da classe Pessoa
  * @MappedSuperClass - Define o mapeamento da herança concreta. Quando utilizado, deve-se pôr somente ele (removendo o @Entity e Inheritance) 
+ * 
+ * Palavra-chave abstract
+ * É sempre bom utilizar essa keyword(palavra-chave) nas superclasses para que elas não sejam instanciadas e persistidas no banco pelo hibernate 
  **/
-@Entity
+@MappedSuperclass
 public abstract class Pessoa implements Serializable{ //Serializable garante a transmissão correta de dados, evita falhas
 	/**
 	 * Anotação @Transient é utilizada para dizer que este atributo não será persistido no banco de dados (não vai virar tabela)

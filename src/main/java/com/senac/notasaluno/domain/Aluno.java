@@ -33,6 +33,7 @@ public class Aluno extends Pessoa {
 	
 	public String getSituacao() {
 		return situacao;
+		
 	}
 
 	public void setSituacao(String situacao) {
