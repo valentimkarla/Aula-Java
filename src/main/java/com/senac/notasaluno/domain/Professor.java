@@ -2,6 +2,7 @@ package com.senac.notasaluno.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Transient;
+
 @Entity
 public class Professor extends Pessoa {
 

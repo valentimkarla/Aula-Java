@@ -3,7 +3,6 @@ package com.senac.notasaluno.domain;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,95 +11,90 @@ import javax.persistence.Transient;
 //Anotação para definir se a classe será persistida para o banco (Virar tabela)
 
 /**
- * As anotações do hibernate serão do javax.persistence
- * A anotação @Entity é utilizada para definir a classe como uma entidade persistida no banco (virar tabela)
- * A anotação @Entity pode ter parâmetros passados como o nome da tabela, é necessário adicionar
- * () com o valor "name", como no exemplo @Entity(name="tb_pessoa")  
- * -- Anotações para herança na superclass (classe pai)
- * @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS) - Define qual a estratégia de mapeamento  de herança será utilizada
- * Um ponto importante, a utilização da palavra-chave abstract, para que na hora da criação do banco o hibernate não crie uma tabela com os atributos da classe Pessoa
- * @MappedSuperClass - Define o mapeamento da herança concreta. Quando utilizado, deve-se pôr somente ele (removendo o @Entity e Inheritance) 
+ * As anotações do hibernate serão do javax.persistence A anotação @Entity é
+ * utilizada para definir a classe como uma entidade persistida no banco (virar
+ * tabela) A anotação @Entity pode ter parâmetros passados como o nome da
+ * tabela, é necessário adicionar () com o valor "name", como no
+ * exemplo @Entity(name="tb_pessoa") -- Anotações para herança na superclass
+ * (classe pai)
  * 
- * Palavra-chave abstract
- * É sempre bom utilizar essa keyword(palavra-chave) nas superclasses para que elas não sejam instanciadas e persistidas no banco pelo hibernate 
+ * @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS) - Define qual a
+ *              estratégia de mapeamento de herança será utilizada Um ponto
+ *              importante, a utilização da palavra-chave abstract, para que na
+ *              hora da criação do banco o hibernate não crie uma tabela com os
+ *              atributos da classe Pessoa
+ * @MappedSuperClass - Define o mapeamento da herança concreta. Quando
+ *                   utilizado, deve-se pôr somente ele (removendo o @Entity e
+ *                   Inheritance)
+ * 
+ *                   Palavra-chave abstract É sempre bom utilizar essa
+ *                   keyword(palavra-chave) nas superclasses para que elas não
+ *                   sejam instanciadas e persistidas no banco pelo hibernate
  **/
+
 @MappedSuperclass
-public abstract class Pessoa implements Serializable{ //Serializable garante a transmissão correta de dados, evita falhas
+public abstract class Pessoa implements Serializable { // Serializable garante a transmissão correta de dados, evita
+														// falhas
 	/**
-	 * Anotação @Transient é utilizada para dizer que este atributo não será persistido no banco de dados (não vai virar tabela)
+	 * Anotação @Transient é utilizada para dizer que este atributo não será
+	 * persistido no banco de dados (não vai virar tabela)
 	 */
 	@Transient
 	private static final long serialVersionUID = 1L;
-	 /**
-	  *  A anotação @Id comunica ao hibernate  qual atributo será a chave primaria (PK)
-	  *  A anotação @GeneratedValue comunica ao hibernate que a chave será incrementada  e o 
-	  *  escopo da incrementação  (auto increment ou não)
-	  **/
+	/**
+	 * A anotação @Id comunica ao hibernate qual atributo será a chave primaria (PK)
+	 * A anotação @GeneratedValue comunica ao hibernate que a chave será
+	 * incrementada e o escopo da incrementação (auto increment ou não)
+	 **/
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nome;
 	/**
-	 * A anotação @Column é utilizada para definir caracteristicas do atributo (coluna)
-	 * tais como: tamanho de caracteres, se é única, se terá valores nulos e etc...
+	 * A anotação @Column é utilizada para definir caracteristicas do atributo
+	 * (coluna) tais como: tamanho de caracteres, se é única, se terá valores nulos
+	 * e etc...
 	 */
-	@Column(unique=true)
+	@Column(unique = true)
 	private String cpf;
-	@Column(unique=true)
+	@Column(unique = true)
 	private String matricula;
-	
+
 	public Pessoa() {
-		
+
 	}
-	
-	
 
 	public Long getId() {
 		return id;
 	}
 
-
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
 
 	public String getNome() {
 		return nome;
 	}
 
-
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-
 
 	public String getCpf() {
 		return cpf;
 	}
 
-
-
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-
-
 
 	public String getMatricula() {
 		return matricula;
 	}
 
-
-
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
-
 
 	/**
 	 * Hash code é pra comparação de objetos
@@ -129,6 +123,5 @@ public abstract class Pessoa implements Serializable{ //Serializable garante a t
 			return false;
 		return true;
 	}
-	
-	
+
 }

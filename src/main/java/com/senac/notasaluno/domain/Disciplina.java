@@ -1,39 +1,48 @@
 package com.senac.notasaluno.domain;
-
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
-@Entity
-public class Estado implements Serializable{
-	@Transient
-	private static final long serialVersionUID = 1L;
 
+@Entity
+public class Disciplina implements Serializable{
+	@Transient
+	private static final long serialVersionUID= 1L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	private String nome;
 	
-	public Estado() {
+	/**
+	 * A anotação @Column(Length) define a quantidade de caracteres no banco
+	 * A anotação @Column(nulllable=true||false) define se o campo será nulo (vazio) ou não 
+	 */
+	@Column(length=150, nullable=false)
+	private String nome; 
+	
+	/**
+	 * A anotação @Column(name) define como será o nome do atributo no banco
+	 * A anotação @Column(columnDefinition) define o tipo do atributo no banco, nesse caso "TEXT" pq descrição pode passar de 255 caracteres 
+	 */
+	@Column(name="descricao", columnDefinition="TEXT")
+	private String descricao;
+	
+	public Disciplina() {
 		
 	}
-	
-	
-	
+
 	public Long getId() {
 		return id;
 	}
 
-
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 
 	public String getNome() {
@@ -44,6 +53,18 @@ public class Estado implements Serializable{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 
@@ -64,7 +85,7 @@ public class Estado implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Estado other = (Estado) obj;
+		Disciplina other = (Disciplina) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -73,6 +94,5 @@ public class Estado implements Serializable{
 		return true;
 	}
 	
-	
-	
+
 }
